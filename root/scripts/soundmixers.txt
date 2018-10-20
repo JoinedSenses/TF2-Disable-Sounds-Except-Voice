@@ -1,0 +1,87 @@
+// Halflife 2 custom sound mixers.
+// These Sound Mixers are referenced by name from Soundscapes, and are used to provide
+// custom volume control over various sound categories, called 'mix groups'
+
+// "GROUPRULES" specifies the rules for inclusion of a sound in a mix group.
+// Rules are checked sequentially (from top to bottom). All fields must match
+// in a row in order for a sound to match the group.  A sound my be included 
+// in up to 8 mix groups.
+
+// LIMITS: 
+//		up to 64 unique mix groups
+//		up to 76 group rules entries
+//		up to 32 sound mixers
+//		all strings are limited to 31 characters!
+
+// NOTE2: at runtime, you can display the classname of the sound source by
+// setting snd_showclassname 1 in the console.
+
+// NOTE3: main character dialog during critical scenes is ducked using a separate code path which, when
+// active, temporarilly disables mixer ducking (prevent double ducking).  
+// Lower priority sounds are ducked by higher priority sounds, if "is ducked" is enabled. 
+// Only sounds with "causes ducking" enabled can cause a lower priority sound to be ducked.
+
+"GROUPRULES"
+{
+// NOTE: order these from least general to most general
+
+//							directory or .wav	classname																Causes  Duck to  Ducker
+//	group name				name substring		substring	chan			sndlvl_min	sndlvl_max	priority Is Ducked	Ducking	Percent	 Threshold
+//  ---------				------------------	---------	-----------		----------	----------	-------- --------	-------	-------	 ---------
+	"voip"					"?VoiceSfx"			""			""				""			""			"60"		"0"		"0"		"100"	"40"
+	"VO"					"vo/"				""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"Ambient"				"ambient/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"common"				"common/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"AmbientMP3"			"ambient_mp3/"		""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"Items"					"items/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"Midi"					"midi/"				""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"Misc"					"misc/"				""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"Music"					"music/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"MVM"					"mvm/"				""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"passtime"				"passtime/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"physics"				"physics/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"pl_hoodoo"				"pl_hoodoo/"		""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"plats"					"plats/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"player"				"player/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"replay"				"replay/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"ui"					"ui/"				""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"weapons"				"weapons/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"buttons"				"buttons/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+	"doors"					"doors/"			""			""				""			""			"50"		"0"		"0"		"100"	"40"
+}
+
+
+//----------------------------------------------------------------
+// Sound Mixers, referenced in Soundscapes via "SOUNDMIXER" "name"
+// New Sound Mixers may be created by level designers or sound engineer.
+//----------------------------------------------------------------
+
+// This is the default mix for the game.
+// The mix value of a sound will be set to the value referenced by the 
+// least general group found that includes the sound. (top to bottom search of grouprules)
+
+"Default_Mix"
+{
+//	group name				mix value
+//  --------				---------
+	"voip"					"1.0"
+	"VO"					"0.0"
+	"Ambient"				"0.0"
+	"AmbientMP3"			"0.0"
+	"common"				"0.0"
+	"Items"					"0.0"
+	"Midi"					"0.0"
+	"Misc"					"0.0"
+	"Music"					"0.0"
+	"MVM"					"0.0"
+	"passtimeVO"			"0.0"
+	"physics"				"0.0"
+	"pl_hoodoo"				"0.0"
+	"plats"					"0.0"
+	"player"				"0.0"
+	"replay"				"0.0"
+	"ui"					"0.0"
+	"weapons"				"0.0"
+	"buttons"				"0.0"
+	"doors"					"0.0"
+}
